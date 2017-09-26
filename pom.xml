@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.postoffice</groupId>
+	<artifactId>functionaltests.tma</artifactId>
+	<version>1.0.1-SNAPSHOT</version>
+	<properties>
+        <ibm.mq.lib.dir>${mqLibDir}</ibm.mq.lib.dir>
+        <ibm.mq.lib.version>7.5.0.2</ibm.mq.lib.version>
+        <selendroid.dependency.lib.dir>${selendroid}</selendroid.dependency.lib.dir>
+    </properties>
+	<dependencies>
+		<dependency>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-java</artifactId>
+			<version>2.45.0</version>
+		</dependency>
+		<dependency>
+			<groupId>info.cukes</groupId>
+			<artifactId>cucumber-java</artifactId>
+			<version>1.2.5</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>info.cukes</groupId>
+			<artifactId>cucumber-junit</artifactId>
+			<version>1.2.5</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.11</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.selendroid</groupId>
+			<artifactId>selendroid-common</artifactId>
+			<version>0.4.2</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.selendroid</groupId>
+			<artifactId>selendroid-standalone</artifactId>
+			<version>0.4.2</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>io.selendroid</groupId>
+			<artifactId>selendroid-client</artifactId>
+			<version>0.8.0</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.selendroid</groupId>
+			<artifactId>selendroid-server-common</artifactId>
+			<version>0.4.2</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.maven.surefire</groupId>
+			<artifactId>surefire-junit47</artifactId>
+			<version>2.19.1</version>
+		</dependency>
+		<dependency>
+			<groupId>selendroid-standalone</groupId>
+			<artifactId>selendroid-standalone</artifactId>
+			<scope>system</scope>
+			<version>0.17.0</version>
+			<systemPath>${selendroid.dependency.lib.dir}\selendroid-standalone-0.17.0-with-dependencies.jar</systemPath> 
+<!-- 			<systemPath>C:\Users\michael.umenyiora\workspace\FunctionalTest\src\test\java\com\bjss\traffic\libs\selendroid-standalone-0.17.0-with-dependencies.jar</systemPath>
+ -->		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpcore</artifactId>
+			<version>4.4.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.4.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-api</artifactId>
+			<version>2.9.0</version>
+		</dependency>
+		<!--<dependency> <groupId>org.testng</groupId> <artifactId>testng</artifactId> 
+			<version>6.8</version> </dependency> -->
+		<dependency>
+			<groupId>net.sourceforge.csvjdbc</groupId>
+			<artifactId>csvjdbc</artifactId>
+			<version>1.0.28</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-dbcp2</artifactId>
+			<version>2.1.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>4.1.4.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>com.ibm</groupId>
+			<artifactId>com.ibm.mq</artifactId>
+			<scope>system</scope>
+			<version>${ibm.mq.lib.version}</version>
+			<systemPath>${ibm.mq.lib.dir}/com.ibm.mq.jar</systemPath>
+		</dependency>
+		<!-- <dependency> <groupId>com.ibm</groupId> <artifactId>com.ibm.mq</artifactId> 
+			<version>${webSphereMQVersion}</version> </dependency> -->
+
+	</dependencies>
+	<!--<pluginRepositories> <pluginRepository> <id>zapi-maven-repo</id> <name>Zapi 
+		Maven Bitbucket repository</name> <url>https://bitbucket.org/zfjdeveloper/zapi-maven-plugin/raw/releases</url> 
+		</pluginRepository> </pluginRepositories> -->
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+					<encoding>UTF-8</encoding>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.19.1</version>
+				<configuration>
+					<testFailIgnore>true</testFailIgnore>
+					<includes>
+						<include>com\bjss\traffic\stepdefs\Test.java</include>
+					</includes>
+					<systemProperties>
+						<property>
+							<name>appId</name>
+							<value>${appId}</value>
+						</property>
+						<property>
+							<name>appSrc</name>
+							<value>${appSrc}</value>
+						</property>
+						<property>
+							<name>csvpath</name>
+							<value>${csvpath}</value>
+						</property>
+					</systemProperties>
+
+				</configuration>
+			</plugin>
+			<!--<plugin> <groupId>com.thed.zapi</groupId> <artifactId>zapi-maven-plugin</artifactId> 
+				<version>0.1</version> <executions> <execution> <phase>test</phase> <goals> 
+				<goal>zapi</goal> </goals> </execution> </executions> <dependencies> <dependency> 
+				<groupId>org.apache.maven.doxia</groupId> <artifactId>doxia-sink-api</artifactId> 
+				<version>1.1.2</version> </dependency> </dependencies> </plugin> -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-report-plugin</artifactId>
+				<version>2.6</version>
+				<configuration>
+					<testFailIgnore>true</testFailIgnore>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>test</phase>
+						<goals>
+							<goal>report-only</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+	<reporting>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-project-info-reports-plugin</artifactId>
+				<version>2.0</version>
+				<configuration>
+					<dependencyLocationEnabled>false</dependencyLocationEnabled>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-report-plugin</artifactId>
+				<version>2.18.1</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-site-plugin</artifactId>
+				<version>3.4</version>
+				<configuration>
+					<testFailIgnore>true</testFailIgnore>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-report-plugin</artifactId>
+				<version>2.6</version>
+				<reportSets>
+					<reportSet>
+						<reports>
+							<report>report-only</report>
+						</reports>
+					</reportSet>
+				</reportSets>
+			</plugin>
+
+		</plugins>
+	</reporting>
+</project>
