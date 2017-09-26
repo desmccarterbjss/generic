@@ -36,7 +36,9 @@ Set-up steps:
 
 	b. Clone this project:
 
-		git clone https://github.com/desmccarterbjss/rm
+		git clone https://github.com/desmccarterbjss/generic
+
+	Using GIT bash ...
 	
 	c. Change directory to cloned folder:
 	
