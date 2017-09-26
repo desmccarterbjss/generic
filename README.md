@@ -57,12 +57,10 @@ Set-up steps:
 	Your ~/.bashrc should now have entries similar to the following:
 	
 
-	export ROYALMAIL_PROJECT_FOLDER="/c/Users/des.mccarter/projects/rm"
-	export PATH="${PATH}:${ROYALMAIL_PROJECT_FOLDER}/scripts"
-	export MAVEN_HOME="c:\\Program\ Files\ (x86)\\Maven\\apache-maven-3.5.0\\bin\\mvn"
-	export PATH="${PATH}:${MAVEN_HOME}"
 	export ANDROID_TOOLS="${HOME}/AppData/Local/Android/sdk/tools"
 	export PATH="${PATH}:${ANDROID_TOOLS}"
+	export ROYALMAIL_PROJECT_FOLDER="/c/Users/des.mccarter/projects/other/rm"
+	export PATH="${PATH}:${ROYALMAIL_PROJECT_FOLDER}/scripts"
 	export ANDROID_HOME="c:\Users\des.mccarter\AppData\Local\Android\sdk"
 
 Testing your installation:
