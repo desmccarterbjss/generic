@@ -42,7 +42,7 @@ Set-up steps:
 	
 	c. Change directory to cloned folder:
 	
-		cd generic
+		cd generic/rm
 	
 	d. Run initialisation script (this script will only work if you are in the rm folder, i.e. folder where pom.xml exists)
 	
