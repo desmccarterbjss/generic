@@ -14,6 +14,7 @@
 # Default maven phases. These are overriden
 # with the -maven-args argument
 
+RUN_AGAINST_PHYSICAL_DEVICE="false"
 MAVEN_ARGS="clean surefire-report:report install test site"
 
 # These options are default, but
@@ -107,6 +108,9 @@ then
 			fi
 
 			CUCUMBER_OPTIONS="${1}"
+		elif [ "${1}" = "--run-against-physical-device" ]
+		then
+			RUN_AGAINST_PHYSICAL_DEVICE="true"	
 		elif [ "${1}" = "-run-emulator" ]
 		then
 			shift
@@ -152,22 +156,29 @@ WEBSPHERE_LIB_ROOT="${ROYALMAIL_PROJECT_FOLDER_WINDOWS}\\src\\test\\resources\\w
 SELENDROID_LIB_ROOT="${ROYALMAIL_PROJECT_FOLDER_WINDOWS}\\src\\test\\java\\com\\bjss\\traffic\\libs" 
 FEATURE_PATHS="src/test/java/com/bjss/traffic/features/"
 
-# If emulator not set on command line
-# then use the default one ...
-
-if [ "a${EMULATOR_NAME}" = "a" ]
-then
-	EMULATOR_NAME="`GetDefaultEmulator`"
-fi
-
 # Kill existing Selendroid (if any) ...
 killProcess "\/c\/Program Files.*\/bin\/java$"
 
-# Run Selendroid ...
+# If we are not running against a physical device but
+# the emulator name is NOT given, then execute tests
+# against default emulator ...
+
+if [ "a${EMULATOR_NAME}" = "a" ]
+then
+	if [ "${RUN_AGAINST_PHYSICAL_DEVICE}" = "false" ]
+	then
+		EMULATOR_NAME="`GetDefaultEmulator`"
+	fi
+fi
+
+# Start Selendroid using the APK given ...
 runSelendroid  "${APK_PACKAGE}"
 
-# Run the emulator ...
-runEmulator "${EMULATOR_NAME}"
+if [ "${RUN_AGAINST_PHYSICAL_DEVICE}" = "false" ]
+then
+	# Start the emulator ...
+	runEmulator "${EMULATOR_NAME}"
+fi
 
 # Execute tests ...
 mvn -f "${ROYALMAIL_PROJECT_FOLDER}/pom.xml" ${MAVEN_ARGS} -DappId="${APP_ID}" -DappSrc="${APP_SRC}" -Dcsvpath="${CSV_PATH}" -DmqLibDir="${WEBSPHERE_LIB_ROOT}" -Dselendroid="${SELENDROID_LIB_ROOT}" -Dcucumber.options="${FEATURE_PATHS} ${CUCUMBER_OPTIONS}"

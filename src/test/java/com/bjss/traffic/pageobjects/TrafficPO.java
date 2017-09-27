@@ -32,6 +32,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.bjss.traffic.config.WebDriverConfig;
+import com.bjss.traffic.tests.properties.Property;
 import com.ibm.mq.MQException;
 import com.bjss.traffic.api.TestHelper;
 import com.bjss.traffic.api.MessageQueues;
@@ -315,15 +316,79 @@ public class TrafficPO {
 		userPin.clear();
 	}
 
+	protected static boolean usePropertiesUser=false;
+	
+	protected final String globalPropertiesLocation="royalmail.properties";
+	
 	public void enterUserId(String userId) {
+		
+		usePropertiesUser=
+				Boolean.parseBoolean(Property.get(globalPropertiesLocation, 
+				"use.properties.test.user"));
+		
+		/**
+		 * If we wish to use the user from the properties file
+		 * (i.e. rather than from the BDD) then we get the user
+		 * for the specific environment ...
+		 */
+		
+		if(usePropertiesUser)
+		{
+			/**
+			 * Get environment ...
+			 */
+			String environment = 
+					Property.get(globalPropertiesLocation, 
+							"test.environment");
+		
+			/**
+			 * 
+			 */
+			loggedInUser = 
+					Property.get("environments/"+environment+"/environment.properties", 
+							"test.username");
+		}
+		else
+		{
+			loggedInUser = userId;
+		}
+		
 		this.initUsername();
-		loggedInUser = userId;
-		username.sendKeys(userId);
-		// userName.sendKeys("5052910722522");
+		
+		username.sendKeys(loggedInUser);
 	}
 
 	public void enterUserPin(String userpin) {
+			
+		usePropertiesUser=
+				Boolean.parseBoolean(Property.get(globalPropertiesLocation, 
+				"use.properties.test.user"));
+		
+		/**
+		 * If we wish to use the user from the properties file
+		 * (i.e. rather than from the BDD) then we get the user
+		 * for the specific environment ...
+		 */
+		
+		if(usePropertiesUser)
+		{
+			/**
+			 * Get environment ...
+			 */
+			String environment = 
+					Property.get(globalPropertiesLocation, 
+							"test.environment");
+		
+			/**
+			 * Get the PIN from properties file ...
+			 */
+			userpin = 
+					Property.get("environments/"+environment+"/environment.properties", 
+							"test.pin");
+		}
+
 		this.initUserPin();
+		
 		pin.sendKeys(userpin);
 	}
 

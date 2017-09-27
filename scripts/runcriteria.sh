@@ -1,5 +1,8 @@
 SITE="${ROYALMAIL_PROJECT_FOLDER}/target/site"
 
+# Tests are run against emulator by default ...
+RUN_AGAINST_PHYSICAL_DEVICE="false"
+
 function prepareTestRun(){
 	if [ -d "${SITE}" ]
 	then
@@ -20,7 +23,14 @@ function processArgs(){
 				exit 1
 			fi
 	
-			export CRITERIA="${1}"
+			CRITERIA="${1}"
+		elif [ "${1}" = "--usage" ]
+		then
+			usage
+			exit 0
+		elif [ "${1}" = "--run-against-physical-device" ]
+		then
+			RUN_AGAINST_PHYSICAL_DEVICE=true
 		elif [ "${1}" = "-apk" ]
 		then
 			shift
@@ -39,7 +49,8 @@ function processArgs(){
 }
 
 function usage(){
-	echo "[INFO] Usage: `basename ${0}` -test-criteria '<criteria>' -apk '<path to API file>'"
+	echo "[INFO] Usage: `basename ${0}` -test-criteria '<criteria>' -apk '<path to API file>' [--run-against-physical-device]"
+	echo "[INFO]        Arguments in square brackets [...] are optional"
 }
 
 function checkArgs(){
@@ -86,7 +97,13 @@ function tidyReports(){
 }
 
 function runTests(){
-	runtests.sh -apk "${ROYALMAIL_PROJECT_FOLDER}/src/test/resources/apks/25092017/1.0.1/app-qa.apk" -run-emulator "Nexus_4_API_19" -cucumber-options "--tags @${CRITERIA}"
+
+	if [ "${RUN_AGAINST_PHYSICAL_DEVICE}" = "true" ]
+	then
+		runtests.sh -apk "${APK}" --run-against-physical-device -cucumber-options "--tags @${CRITERIA}"
+	else
+		runtests.sh -apk "${APK}" -run-emulator "Nexus_4_API_19" -cucumber-options "--tags @${CRITERIA}"
+	fi
 
 	tidyReports
 }

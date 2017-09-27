@@ -26,7 +26,7 @@ import io.selendroid.SelendroidConfiguration;
 import io.selendroid.SelendroidDriver;
 import io.selendroid.SelendroidKeys;
 import io.selendroid.SelendroidLauncher;
-import io.selendroid.common.SelendroidCapabilities;
+//import io.selendroid.common.SelendroidCapabilities;
 
 public class TrafficStepDef {
 

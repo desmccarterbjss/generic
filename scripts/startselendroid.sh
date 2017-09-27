@@ -42,13 +42,19 @@ function runSelendroid(){
 
 	# Start selendroid ...
 
+	echo "[INFO] Starting Selendroid with APK ${APK_PACKAGE} ..."
+
 	java \
 		-jar "${ROYALMAIL_PROJECT_FOLDER}/src/test/resources/selendroid/selendroid-standalone-0.17.0-with-dependencies.jar" \
-		-app "${APK_PACKAGE}" >> "${SELENDROID_LOG}" 2>> "${SELENDROID_LOG}" &
+		-app "${APK_PACKAGE}" #>> "${SELENDROID_LOG}" 2>> "${SELENDROID_LOG}" &
+
+	exit 0
 
 	# Check that we have Selendroid running successfully ...
 
 	#checkRunning
 
 	sleep 10
+	
+	echo "[INFO] Selendroid started with APK ${APK_PACKAGE}"
 }

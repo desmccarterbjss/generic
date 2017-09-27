@@ -6,5 +6,5 @@ SPRINT_NUMBERS="1 2 3 4 5 6 7 8 9"
 
 for sprintnumber in ${SPRINT_NUMBERS}
 do
-	${ROYALMAIL_PROJECT_FOLDER}/scripts/runcriteria.sh -test-criteria "sprint${sprintnumber}" -apk "${ROYALMAIL_PROJECT_FOLDER}/src/test/resources/apks/25092017/1.0.1/app-qa.apk"
+	${ROYALMAIL_PROJECT_FOLDER}/scripts/runcriteria.sh --run-against-physical-device -test-criteria "sprint${sprintnumber}" -apk "${ROYALMAIL_PROJECT_FOLDER}/src/test/resources/apks/25092017/1.0.1/app-sit.apk"
 done
