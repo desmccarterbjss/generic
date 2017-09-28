@@ -3,6 +3,8 @@ SITE="${ROYALMAIL_PROJECT_FOLDER}/target/site"
 # Tests are run against emulator by default ...
 RUN_AGAINST_PHYSICAL_DEVICE="false"
 
+CHECKOUT_APK="false"
+
 function prepareTestRun(){
 	if [ -d "${SITE}" ]
 	then
@@ -24,6 +26,9 @@ function processArgs(){
 			fi
 	
 			CRITERIA="${1}"
+		elif [ "${1}" = "--git-checkout-apk" ]
+		then
+			CHECKOUT_APK=true
 		elif [ "${1}" = "--usage" ]
 		then
 			usage
@@ -42,6 +47,9 @@ function processArgs(){
 			fi
 	
 			APK="${1}"
+		else
+			echo "Unknown argument ${1}"
+			exit 1
 		fi
 	
 		shift
@@ -49,7 +57,7 @@ function processArgs(){
 }
 
 function usage(){
-	echo "[INFO] Usage: `basename ${0}` -test-criteria '<criteria>' -apk '<path to API file>' [--run-against-physical-device]"
+	echo "[INFO] Usage: `basename ${0}` -test-criteria '<criteria>' -apk '<path to API file>' [--run-against-physical-device] [--git-checkout-apk]"
 	echo "[INFO]        Arguments in square brackets [...] are optional"
 }
 
@@ -96,6 +104,22 @@ function tidyReports(){
 	fi
 }
 
+function checkoutApk(){
+	echo "[INFO] attempting to get fresh copy of APK (${APK}) from GIT ..."
+
+	git checkout -- "${*}"
+
+	if [ ! "${?}" = 0 ]
+	then
+		echo "[ERR] Getting fresh copy of APK from GIT repo"
+
+		exit 1
+	else
+		echo "[INFO] Done."
+	fi
+}
+
+
 function runTests(){
 
 	if [ "${RUN_AGAINST_PHYSICAL_DEVICE}" = "true" ]
@@ -110,5 +134,11 @@ function runTests(){
 
 processArgs $*
 checkArgs
+
+if [ "${CHECKOUT_APK}" = "true" ]
+then
+	checkoutApk "${APK}"
+fi
+
 prepareTestRun
 runTests

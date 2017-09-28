@@ -46,9 +46,7 @@ function runSelendroid(){
 
 	java \
 		-jar "${ROYALMAIL_PROJECT_FOLDER}/src/test/resources/selendroid/selendroid-standalone-0.17.0-with-dependencies.jar" \
-		-app "${APK_PACKAGE}" #>> "${SELENDROID_LOG}" 2>> "${SELENDROID_LOG}" &
-
-	exit 0
+		-app "${APK_PACKAGE}" >> "${SELENDROID_LOG}" 2>> "${SELENDROID_LOG}" &
 
 	# Check that we have Selendroid running successfully ...
 
