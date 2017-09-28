@@ -36,6 +36,17 @@ function processArgs(){
 		elif [ "${1}" = "--run-against-physical-device" ]
 		then
 			RUN_AGAINST_PHYSICAL_DEVICE=true
+		elif [ "${1}" = "-environment" ]
+		then
+			shift
+	
+			if [ "a${1}" = "a" ]
+			then
+				echo "[ERR] -environment flag requires an environment, e.g. -apk 'qa' or -apk 'sit' or -apk 'pre-prod' ... "
+				exit 1
+			fi
+	
+			TEST_ENVIRONMENT="${1}"
 		elif [ "${1}" = "-apk" ]
 		then
 			shift
@@ -119,6 +130,17 @@ function checkoutApk(){
 	fi
 }
 
+function pointToEnvironment(){
+
+	ENV="${1}"
+
+	echo "[INFO] Setting environment to \"${ENV}\""
+
+	cat "${ROYALMAIL_PROJECT_FOLDER}/src/test/resources/royalmail.properties" | sed s/"^[ ]*\(test.environment=\).*"/"\1$ENV"/g > /tmp/royalmail.properties
+
+	mv /tmp/royalmail.properties "${ROYALMAIL_PROJECT_FOLDER}/src/test/resources/royalmail.properties"
+}
+
 
 function runTests(){
 
@@ -132,8 +154,23 @@ function runTests(){
 	tidyReports
 }
 
+# Check arguments sent into this script
+# and make sure they are valid ...
+
 processArgs $*
 checkArgs
+
+# if environment given then
+# point to it ...
+
+if [ ! "a${TEST_ENVIRONMENT}" = "a" ]
+then
+	pointToEnvironment "${TEST_ENVIRONMENT}"
+fi
+
+
+# if user wishes to checkout a fresh APK 
+# then do a 'git checokout' of the APK ...
 
 if [ "${CHECKOUT_APK}" = "true" ]
 then
@@ -141,4 +178,6 @@ then
 fi
 
 prepareTestRun
+
+# ... and finally run tests and produce a report ...
 runTests
