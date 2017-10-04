@@ -15,6 +15,9 @@
 # with the -maven-args argument
 
 RUN_AGAINST_PHYSICAL_DEVICE="false"
+
+unset RUN_SELENDROID
+
 MAVEN_ARGS="clean surefire-report:report install test site"
 
 # These options are default, but
@@ -108,6 +111,9 @@ then
 			fi
 
 			CUCUMBER_OPTIONS="${1}"
+		elif [ "${1}" = "--run-selendroid" ]
+		then
+			RUN_SELENDROID="true"	
 		elif [ "${1}" = "--run-against-physical-device" ]
 		then
 			RUN_AGAINST_PHYSICAL_DEVICE="true"	
@@ -150,14 +156,11 @@ then
 fi
 
 APP_ID="uk.co.royalmail.traffic.qa" 
-APP_SRC="src//test//java//com//bjss//traffic//resource/app-qa.apk" 
 CSV_PATH="src//test//resources" 
 WEBSPHERE_LIB_ROOT="${ROYALMAIL_PROJECT_FOLDER_WINDOWS}\\src\\test\\resources\\websphere\\IBM-MQ-JAR" 
 SELENDROID_LIB_ROOT="${ROYALMAIL_PROJECT_FOLDER_WINDOWS}\\src\\test\\java\\com\\bjss\\traffic\\libs" 
 FEATURE_PATHS="src/test/java/com/bjss/traffic/features/"
 
-# Kill existing Selendroid (if any) ...
-killProcess "\/c\/Program Files.*\/bin\/java$"
 
 # If we are not running against a physical device but
 # the emulator name is NOT given, then execute tests
@@ -171,8 +174,14 @@ then
 	fi
 fi
 
-# Start Selendroid using the APK given ...
-runSelendroid  "${APK_PACKAGE}"
+if [ "a${RUN_SELENDROID}" = "atrue" ]
+then
+	# Kill existing Selendroid (if any) ...
+	killProcess "\/c\/Program Files.*\/bin\/java$"
+
+	# Start Selendroid using the APK given ...
+	runSelendroid  "${APK_PACKAGE}"
+fi
 
 if [ "${RUN_AGAINST_PHYSICAL_DEVICE}" = "false" ]
 then
@@ -181,4 +190,5 @@ then
 fi
 
 # Execute tests ...
-mvn -f "${ROYALMAIL_PROJECT_FOLDER}/pom.xml" ${MAVEN_ARGS} -DappId="${APP_ID}" -DappSrc="${APP_SRC}" -Dcsvpath="${CSV_PATH}" -DmqLibDir="${WEBSPHERE_LIB_ROOT}" -Dselendroid="${SELENDROID_LIB_ROOT}" -Dcucumber.options="${FEATURE_PATHS} ${CUCUMBER_OPTIONS}"
+
+mvn -f "${ROYALMAIL_PROJECT_FOLDER}/pom.xml" ${MAVEN_ARGS} -DappId="${APP_ID}" -DappSrc="${APK_PACKAGE}" -Dcsvpath="${CSV_PATH}" -DmqLibDir="${WEBSPHERE_LIB_ROOT}" -Dselendroid="${SELENDROID_LIB_ROOT}" -Dcucumber.options="${FEATURE_PATHS} ${CUCUMBER_OPTIONS}"

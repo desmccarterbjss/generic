@@ -18,7 +18,7 @@ Feature: User Authentication
 @pdaptt-153 @sprint1 @check @regression
 Scenario Outline: User Login invalid user id
 	Given User is not already logged in 
-	When User enters their unique "<user ID>"  
+	When User enters an invalid user ID "<user ID>"  
 	And User enters their "<pin>" 
 	And User proceeds to login 
 	Then User should not be logged on 
@@ -31,7 +31,7 @@ Scenario Outline: User Login invalid user id
 Scenario Outline: User Login invalid pin
 	Given User is not already logged in 
 	When User enters their unique "<user ID>"  
-	And User enters their "<pin>" 
+	And User enters an invalid pin "<pin>" 
 	And User proceeds to login 
 	Then User should not be logged on 
 		

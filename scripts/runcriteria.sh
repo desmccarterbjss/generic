@@ -1,9 +1,12 @@
+. "${ROYALMAIL_PROJECT_FOLDER}/scripts/royalmailutils.sh"
+
 SITE="${ROYALMAIL_PROJECT_FOLDER}/target/site"
 
 # Tests are run against emulator by default ...
 RUN_AGAINST_PHYSICAL_DEVICE="false"
-
 CHECKOUT_APK="false"
+
+unset RUN_SELENDROID
 
 function prepareTestRun(){
 	if [ -d "${SITE}" ]
@@ -33,6 +36,9 @@ function processArgs(){
 		then
 			usage
 			exit 0
+		elif [ "${1}" = "--run-selendroid" ]
+		then
+			RUN_SELENDROID=" ${1} "
 		elif [ "${1}" = "--run-against-physical-device" ]
 		then
 			RUN_AGAINST_PHYSICAL_DEVICE=true
@@ -115,10 +121,24 @@ function tidyReports(){
 	fi
 }
 
-function checkoutApk(){
-	echo "[INFO] attempting to get fresh copy of APK (${APK}) from GIT ..."
+function removePackagesFromDevice(){
 
-	git checkout -- "${*}"
+	APP_ID="`GetAppId`"
+
+	echo -n "[INFO] Removing existing app ${APP_ID} from PDA device..."
+
+	adb uninstall "${APP_ID}" >/dev/null 2>/dev/null
+	adb uninstall "io.selendroid.${APP_ID}" >/dev/null 2>/dev/null
+
+	echo
+
+	echo "[INFO] ${APP_ID} removed from PDA device."
+}
+
+function checkoutApk(){
+	echo "[INFO] attempting to get fresh copy of APK (${*}) from GIT ..."
+
+	git checkout -- ${*}
 
 	if [ ! "${?}" = 0 ]
 	then
@@ -146,9 +166,11 @@ function runTests(){
 
 	if [ "${RUN_AGAINST_PHYSICAL_DEVICE}" = "true" ]
 	then
-		runtests.sh -apk "${APK}" --run-against-physical-device -cucumber-options "--tags @${CRITERIA}"
+		removePackagesFromDevice
+
+		runtests.sh -apk "${APK}" --run-against-physical-device ${RUN_SELENDROID} -cucumber-options "--tags @${CRITERIA}"
 	else
-		runtests.sh -apk "${APK}" -run-emulator "Nexus_4_API_19" -cucumber-options "--tags @${CRITERIA}"
+		runtests.sh -apk "${APK}" -run-emulator "Nexus_4_API_19" ${RUN_SELENDROID} -cucumber-options "--tags @${CRITERIA}"
 	fi
 
 	tidyReports

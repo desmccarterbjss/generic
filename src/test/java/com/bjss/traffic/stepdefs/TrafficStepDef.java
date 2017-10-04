@@ -83,6 +83,23 @@ public class TrafficStepDef {
 		setUpPageObject().checkLoginButtonEnabled();
 	}
 
+	@When("^User enters an invalid user ID \"([^\"]*)\"$")
+	public void user_enters_invalid_userId(String userId) throws Throwable {
+		setUpPageObject().enterUserId(userId, true);
+		/*
+		 * driver = selendroid.setUpSelendroid();
+		 * 
+		 * WebElement userName = (new WebDriverWait(driver, 30))
+		 * .until(ExpectedConditions.presenceOfElementLocated(By.id(
+		 * "login_edit_username")));
+		 * 
+		 * userName = driver.findElement(By.id("login_edit_username"));
+		 * Assert.assertEquals("true", userName.getAttribute("enabled"));
+		 * userName.clear(); //userName.sendKeys("Maurizio");
+		 * userName.sendKeys("UseR");
+		 */
+	}
+	
 	@When("^User enters their unique \"([^\"]*)\"$")
 	public void user_enters_their_unique(String userId) throws Throwable {
 		setUpPageObject().enterUserId(userId);
@@ -100,6 +117,23 @@ public class TrafficStepDef {
 		 */
 	}
 
+	@When("^User enters an invalid pin \"([^\"]*)\"$")
+	public void user_enters_an_invalid_pin(String pin) throws Throwable {
+		/*
+		 * WebElement password =
+		 * driver.findElement(By.id("login_edit_password"));
+		 * Assert.assertEquals("true", password.getAttribute("enabled"));
+		 * password.clear(); //password.sendKeys("password");
+		 * password.sendKeys("PreCom4!");
+		 */
+		/*
+		 * UserAuthenticationPO userAuthPO = PageFactory.initElements(driver,
+		 * UserAuthenticationPO.class);
+		 */
+		setUpPageObject().enterUserPin(pin, true);
+
+	}
+	
 	@When("^User enters their \"([^\"]*)\"$")
 	public void user_enters_their(String pin) throws Throwable {
 		/*
@@ -305,8 +339,8 @@ public class TrafficStepDef {
 
 	@Given("^The user has logged on with their \"([^\"]*)\" and \"([^\"]*)\"$")
 	public void the_user_has_logged_on_with_their_and(String userId, String pin) throws Throwable {
-		setUpPageObject().enterUsername(userId);
-		setUpPageObject().enterPin(pin);
+		setUpPageObject().enterUserId(userId);
+		setUpPageObject().enterUserPin(pin);
 		setUpPageObject().clickLoginButton();
 	}
 

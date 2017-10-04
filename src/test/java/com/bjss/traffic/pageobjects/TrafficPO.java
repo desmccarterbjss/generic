@@ -319,8 +319,12 @@ public class TrafficPO {
 	protected static boolean usePropertiesUser=false;
 	
 	protected final String globalPropertiesLocation="royalmail.properties";
-	
+
 	public void enterUserId(String userId) {
+		enterUserId(userId,false);
+	}
+	
+	public void enterUserId(String userId, boolean useGivenUserId) {
 		
 		usePropertiesUser=
 				Boolean.parseBoolean(Property.get(globalPropertiesLocation, 
@@ -332,7 +336,7 @@ public class TrafficPO {
 		 * for the specific environment ...
 		 */
 		
-		if(usePropertiesUser)
+		if(usePropertiesUser && !useGivenUserId)
 		{
 			/**
 			 * Get environment ...
@@ -359,6 +363,10 @@ public class TrafficPO {
 	}
 
 	public void enterUserPin(String userpin) {
+		enterUserPin(userpin,false);
+	}
+	
+	public void enterUserPin(String userpin, boolean useUserPin) {
 			
 		usePropertiesUser=
 				Boolean.parseBoolean(Property.get(globalPropertiesLocation, 
@@ -370,7 +378,7 @@ public class TrafficPO {
 		 * for the specific environment ...
 		 */
 		
-		if(usePropertiesUser)
+		if(usePropertiesUser && !useUserPin)
 		{
 			/**
 			 * Get environment ...
@@ -1380,14 +1388,6 @@ public class TrafficPO {
 		summaryUi.add(stream);
 
 		testHelper.compareList("",summaryUi, summary);
-	}
-
-	public void enterUsername(String userId) {
-		WebElement userName = (new WebDriverWait(driver, 60)).until(ExpectedConditions.visibilityOf(username));
-		userName.clear();
-		loggedInUser = userId;
-		userName.sendKeys(userId);
-		// userName.sendKeys("5052910722522");
 	}
 
 	public void enterPin(String userpin) {

@@ -5,6 +5,20 @@ START_SELENDROID_TIMEOUT=20
 
 SELENDROID_LOG="/tmp/selendroid.log"
 
+function removePackagesFromDevice(){
+
+	APP_ID="`GetAppId`"
+
+	echo -n "[INFO] Removing existing app ${APP_ID} ..."
+
+	adb uninstall "${APP_ID}" >/dev/null 2>/dev/null
+	adb uninstall "io.selendroid.${APP_ID}" >/dev/null 2>/dev/null
+
+	echo
+
+	echo "[INFO] Done."
+}
+
 function checkRunning(){
 
 	let COUNT=0
@@ -28,7 +42,7 @@ function runSelendroid(){
 	if [ "a${APK_PACKAGE}" = "a" ]
 	then
 		echo "[ERR] APK package name not given"
-		exit 1
+		return 1
 	fi
 
 
@@ -37,7 +51,7 @@ function runSelendroid(){
 	if [ ! -f "${APK_PACKAGE}" ]
 	then
 		echo "[ERR] APK package ${APK_PACKAGE} does not exist"
-		exit 1
+		return 1
 	fi
 
 	# Start selendroid ...
@@ -46,7 +60,7 @@ function runSelendroid(){
 
 	java \
 		-jar "${ROYALMAIL_PROJECT_FOLDER}/src/test/resources/selendroid/selendroid-standalone-0.17.0-with-dependencies.jar" \
-		-app "${APK_PACKAGE}" >> "${SELENDROID_LOG}" 2>> "${SELENDROID_LOG}" &
+		-aut "${APK_PACKAGE}" -logLevel VERBOSE >> "${SELENDROID_LOG}" 2>> "${SELENDROID_LOG}" &
 
 	# Check that we have Selendroid running successfully ...
 

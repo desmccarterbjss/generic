@@ -16,7 +16,7 @@
 @captureattributes
 Feature: Capture Attributes
 
-  @pdaptt-2 @sprint1 @sitelocation
+  @pdaptt-2 @sprint1 @sitelocation @debugtest @tmademo
   Scenario Outline: Capture Site Location Name
     Given The user has logged on with their username "<user ID>" and pin "<pin>"
     When The user is on the shift details page
