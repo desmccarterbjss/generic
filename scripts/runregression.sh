@@ -91,8 +91,6 @@ function executeSprintScenarios(){
 			echo "[INFO] Running tests against physical device"
 
 			${ROYALMAIL_PROJECT_FOLDER}/scripts/runcriteria.sh -environment ${TEST_ENVIRONMENT} --git-checkout-apk --run-selendroid --run-against-physical-device -test-criteria "sprint${sprintnumber}" -apk "${APK}"
-
-			exit 0
 		fi
 	done
 
