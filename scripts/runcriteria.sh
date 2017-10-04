@@ -108,7 +108,7 @@ function tidyReports(){
 	
 		cd "${SITE}"
 	
-		tar -cvpf ~/"${CRITERIA}.tar" *
+		tar -cvpf ~/"${CRITERIA}.tar" * &>/dev/null
 	
 		if [ ! -d ${OUTPUT_FOLDER}/${CRITERIA} ]
 		then
@@ -117,7 +117,9 @@ function tidyReports(){
 	
 		cd ${OUTPUT_FOLDER}/${CRITERIA}
 	
-		tar -xvpf ~/"${CRITERIA}.tar"
+		tar -xvpf ~/"${CRITERIA}.tar" &>/dev/null
+
+		echo "[INFO] Test results held in ${OUTPUT_FOLDER}/${CRITERIA}"
 	fi
 }
 

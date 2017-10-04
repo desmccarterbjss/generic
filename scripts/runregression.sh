@@ -8,7 +8,7 @@
 SPRINT_NUMBERS="1 2 3 4 5 6 7 8 9" 
 
 # Point to APK that needs testing 
-# (defined in royalmail.properties) ...
+# (defined as app.src in royalmail.properties) ...
 
 APK="${ROYALMAIL_PROJECT_FOLDER}/`GetApkLocation`"
 
@@ -36,7 +36,8 @@ function processArgs(){
 		elif [ "${1}" = "--verify" ]
 		then
 			echo "[INFO] VERIFYING Framework installation."
-			SPRINT_NUMBERS="1"
+
+			SPECIFIC_TEST_CRITERIA="tmademo"
 		elif [ "${1}" = "--usage" ]
 		then
 			usage
@@ -123,7 +124,7 @@ function checkArgs(){
 ##################################
 
 function runSpecificScenarios(){
-	${ROYALMAIL_PROJECT_FOLDER}/scripts/runcriteria.sh -environment sit --git-checkout-apk --run-against-physical-device -test-criteria "${SPECIFIC_TEST_CRITERIA}" -apk "${APK}"
+	${ROYALMAIL_PROJECT_FOLDER}/scripts/runcriteria.sh -environment ${TEST_ENVIRONMENT} --git-checkout-apk --run-selendroid --run-against-physical-device -test-criteria "${SPECIFIC_TEST_CRITERIA}" -apk "${APK}"
 }
 
 # *** process arguments fed into 
