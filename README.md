@@ -1,10 +1,10 @@
-Author		- Des McCarter @ BJSS
-Date		- 11/09/2017
-Description	- RM TMA Functional Tests - How to install the TMA Test Framework and execute tests
+Author		:		Des McCarter @ BJSS
+Date		:		11/09/2017
+Description : TMA Functional Test Framework - Installation and Execution guide
 
 Pre-requisits:
 
-	1. Maven		- https://maven.apache.org/download.cgi?Preferred=ftp%3A%2F%2Fmirror.reverse.net%2Fpub%2Fapache%2F
+	1. Maven			- https://maven.apache.org/download.cgi?Preferred=ftp%3A%2F%2Fmirror.reverse.net%2Fpub%2Fapache%2F
 	2. Java SDK (8+)	- https://java.com/en/download/win10.jsp
 	3. GIT Client		- https://git-scm.com/download/win
 	4. Android Studio 	- https://developer.android.com/studio/index.html
@@ -18,8 +18,7 @@ Notes:
 	   last created emulator and will attempt to use it. Emulators other than the one suggested do not work (at least
 	   all the way through test execution) so it is advised that (before you attempt to run any tests) that the Nexus_4_API_19
 	   emulator exists.
-	
-	
+		
 Set-up steps:
 
 	At this point we are assuming that:
@@ -36,13 +35,13 @@ Set-up steps:
 
 	b. Clone this project:
 
-		git clone https://github.com/desmccarterbjss/generic
+		git clone https://github.com/desmccarterbjss/other
 
 	Using GIT bash ...
 	
 	c. Change directory to cloned folder:
 	
-		cd generic/rm
+		cd other/rm
 	
 	d. Run initialisation script (this script will only work if you are in the rm folder, i.e. folder where pom.xml exists)
 	
@@ -88,29 +87,37 @@ Running tests:
 	b. starts the emulator (optional) and c. runs the specified (by category) tests. If no option is
 	supplied specifying a category of tests, then the default category is regression.
 	
-	Since the scripts folder is now part of your PATH, runtests.sh can be run from any folder within your bash instance.
+	Since the scripts folder is now part of your PATH, runregression.sh can be run from any folder within your bash instance.
 	
-	a. To run regression:
+	To run regression:
 	
-		runtests.sh
-	
-	b. To run tests but fire up an emulator beforehand:
-	
-		runtests.sh -run-emulator "Nexus_4_API_19"
-	
-	c. To do 'b.' but against a specific category of tests (e.g. sprint3):
-	
-		runtests.sh -run-emulator "Nexus_4_API_19" -cucumber-options "--tags @sprint3"
+		We execute regression using the script/runregression.sh script. It requires that you specify the environment to which you need to execute regression against,
+		using the -test-environment flag.
 		
-		... where '@sprint3' represents a specific category of (Cucumber) test features
+		Example - execute entire regression against SIT environment on android emulator:
 		
+			runregression.sh -test-environment sit
+			
+		Example - execute entire regression against SIT environment on physical Android Device:
+		
+			runregression.sh -test-environment sit --run-against-physical-device
+	
+	A few notes:
+	
+	a. To successfully run tests against an emulator, TMA requires that you connected to the RMG wifi network.
+	b. If the "--run-against-physical-device" flag is NOT given then the framework will automatically fire up the emulator.
+	c. If the "--run-against-physical-device" flag IS given then the framework will assume that you have the device connected via USB.
+	d. "Full Regression", in cucumber terms, are all test scenarios having categories @sprint1, @sprint2, ..., @sprint9 tags.
+	e. Location of APK being tested and additional information (e.g. Maven/Selendroid app ID etc) are all stored within src/test/resources/royalmail.properties.
+	f. The -test-environment switch of runregression.sh will automatically take environment info (e.g. usernames etc) from src/test/resources/environments.
+	g. The -test-environment flag is MANDATORY.
 	
 	How to run Selendroid standalone on its own:
 	
 	Type in the following in bash to run selendroid standalone only (in the root cloned folder):
 	
 		a. . ./scripts/startselendroid.sh (execute this line only once in your bash instance)
-		b. runSelendroid
+		b. runSelendroid <location to APK file>
 		
 	To make sure selendroid is running successfully then check the log file /tmp/selendroid.log.
 	
@@ -129,5 +136,8 @@ Folders:
 		i.	src/test/resources/websphere 	- WebSphere library
 		ii	src/test/resources/selendroid	- Selendroid standalone
 		iii	src/test/resources/royalmail.properties	- All project properties are set here
-
-	3. scripts				- where all scripts live
+		iv  src/test/resources/apks			- Where the latest APK's are located
+		v   src/test/resources/environments	- Where environment specific properties are located
+		
+	3. scripts				- where all scripts live, including runregression.sh.
+	
