@@ -33,6 +33,10 @@ function processArgs(){
 		if [ "${1}" = "--run-against-physical-device" ]
 		then
 			PHYSICAL_DEVICE="true"
+		elif [ "${1}" = "--verify" ]
+		then
+			echo "[INFO] VERIFYING Framework installation."
+			SPRINT_NUMBERS="1"
 		elif [ "${1}" = "--usage" ]
 		then
 			usage

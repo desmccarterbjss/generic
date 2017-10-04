@@ -1,1 +1,5 @@
-runtests.sh -apk "${ROYALMAIL_PROJECT_FOLDER}/src/test/resources/apks/1.0.1/app-qa.apk" -run-emulator "Nexus_4_API_19"
+# Verifies that framework has been successfully installed by running a sample
+# test case against an emulator. You will need to be on the RMG network 
+# for this to work ...
+
+${ROYALMAIL_PROJECT_FOLDER}/scripts/runregression.sh -test-environment sit --verify
