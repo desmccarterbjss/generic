@@ -43,11 +43,15 @@ public class WebDriverConfig {
 		 
 		 //Create instance of Selendroid Driver
 		 try{
-			 System.out.println("[INFO] Connecting to Selendroid Standalone Server ....");
+			 System.out.println("[INFO] Connecting to Android Device ....");
 			 driver = new SelendroidDriver(capa);
-			 System.out.println("[INFO] Done.");
+			 System.out.println("[INFO] Connected.");
 		 }catch(Exception e){
-			 System.out.println("[ERR] Connecting to Selendroid Standalone Server .... :"+e.getMessage());
+			 System.out.println("[ERR] Connecting to Android Device .... :"+e.getMessage());
+			 
+			 // **** this needs to be thrown!!!! (Des)
+			 // **** ... there are a few of these around.
+			 ///throw e;
 		 }
 		 
 		 return driver;

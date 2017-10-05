@@ -28,7 +28,7 @@ Feature: Capture Attributes
       | qa01.testuser | 1234 |
 
   @pdaptt-11 @sprint1
-  Scenario Outline: Capture Work Area
+  Scenario Outline:  AreCapture Worka
     Given The user has logged on with their username "<user ID>" and pin "<pin>"
     When The user is on the shift details page
     Then They should be able to view a list of work area names
@@ -60,7 +60,7 @@ Feature: Capture Attributes
       | user ID       | pin  |
       | qa01.testuser | 1234 |
 
-  @PDAPTT-159 @sprint1
+  @PDAPTT-159 @sprint1 @tmarmdemo @workareatests
   Scenario Outline: Mail Formats should match selected work area
     Given The user has logged on with their "qa01.testuser" and "1234"
     When The user is on the shift details page
@@ -70,7 +70,8 @@ Feature: Capture Attributes
 
     Examples: work area data
       | work area | work area id |
-      | Conc Out  |      1000068 |
+      | Conc Out  |      1000070 |
+
 
   @PDAPTT-159 @sprint1
   Scenario Outline: Single Mail Formats should be auto selected

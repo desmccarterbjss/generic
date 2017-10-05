@@ -15,7 +15,7 @@
 @userauthentication 
 Feature: User Authentication 
 
-@pdaptt-153 @sprint1 @check @regression
+@PDAPTT-153 @sprint1 @check @regression
 Scenario Outline: User Login invalid user id
 	Given User is not already logged in 
 	When User enters an invalid user ID "<user ID>"  
@@ -27,7 +27,7 @@ Scenario Outline: User Login invalid user id
 		|user ID|pin |
 		|tester|1234|
 	
-@pdaptt-153 @sprint1 
+@PDAPTT-153 @sprint1 
 Scenario Outline: User Login invalid pin
 	Given User is not already logged in 
 	When User enters their unique "<user ID>"  
@@ -39,7 +39,7 @@ Scenario Outline: User Login invalid pin
 		|user ID|pin|
 		|qa01.testuser|123456|
 			
-@pdaptt-153 @sprint1 @regression
+@PDAPTT-153 @sprint1 @regression
 Scenario Outline: User Login successful
 	Given User is not already logged in 
 	When User enters their unique "<user ID>" 
@@ -55,7 +55,7 @@ Examples: login data
 		
 		
 
-@pdaptt-121 @sprint1 @logout @regression
+@PDAPTT-121 @sprint1 @logout @regression
 Scenario Outline: User Logout 
 	Given User is not already logged in 
 	When User enters their unique "<user ID>" 
@@ -68,21 +68,21 @@ Scenario Outline: User Logout
 		|user ID|pin|
 		|qa01.testuser|1234|
 
-@pdaptt-155 @sprint1 
+@PDAPTT-155 @sprint1 
 Scenario: Pre-login negative validation 
 	Given User is not already logged in 
 	When The user keeps username blank 
 	And The user enters atleast one digit pin 
 	Then Login button should be disabled 
 
-@pdaptt-155 @sprint1 
+@PDAPTT-155 @sprint1 
 Scenario: Pre-login negative validation 
 	Given User is not already logged in 
 	When The user enters atleast one character username 
 	And The user keeps pin blank 
 	Then Login button should be disabled 
 	
-@pdaptt-155 @sprint1 
+@PDAPTT-155 @sprint1 
 Scenario: Pre-login positive validation 
 	Given User is not already logged in 
 	When The user enters atleast one character username 
@@ -92,13 +92,13 @@ Scenario: Pre-login positive validation
 
 
 
-@pdaptt-55 @wip 
+@PDAPTT-55 @wip 
 Scenario: Capture User ID 
 	Given The user is logged in 
 	When The the User ID is captured 
 	Then All transactions should be associated with the user identity 
 	
-@pdaptt-120 @wip 
+@PDAPTT-120 @wip 
 Scenario: Failed Login less than three attempts 
 	Given User is not already logged in 
 	When User has entered their login details 
@@ -107,7 +107,7 @@ Scenario: Failed Login less than three attempts
 	Then The screen should display a failed login message 
 	And Remain on the screen until login is successful 
 	
-@pdaptt-120 @wip 
+@PDAPTT-120 @wip 
 Scenario: Failed Login three attempts 
 	Given User is not already logged in 
 	When User has entered their login details 
