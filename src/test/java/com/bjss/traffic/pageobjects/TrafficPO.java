@@ -41,10 +41,18 @@ import com.bjss.traffic.config.GetRawRefData;
 import io.selendroid.SelendroidKeys;
 
 public class TrafficPO {
+	
 	private WebDriver driver;
+	
 	TestHelper testHelper = new TestHelper();
+	
 	MessageQueues mQueue = new MessageQueues();
 
+	private static String dataResultFolder=
+			Property.get("royalmail.properties", "results.folder");
+	
+	private static String resultsFile=dataResultFolder+"\\results.txt";
+	
 	private static String loggedInUser;
 	private static String destinationLocation;
 	private static String siteLocation;
@@ -65,6 +73,24 @@ public class TrafficPO {
 
 	public TrafficPO(WebDriver driver) {
 		this.driver = driver;
+		
+		File dir = new File(dataResultFolder);
+
+		if( !dir.exists() )
+		{
+			System.out.println("[INFO] Creating results folder "+dataResultFolder);
+			
+			if( dir.mkdir() )
+			{
+				System.out.println(
+						"[INFO] Created results folder "+dataResultFolder);
+			}
+			else
+			{
+				System.out.println(
+						"[ERR] Failed to create results folder "+dataResultFolder);
+			}
+		}
 	}
 
 	@FindBy(id = "login_edit_username")
@@ -318,7 +344,7 @@ public class TrafficPO {
 
 	protected static boolean usePropertiesUser=false;
 	
-	protected final String globalPropertiesLocation="royalmail.properties";
+	protected static String globalPropertiesLocation="royalmail.properties";
 
 	public void enterUserId(String userId) {
 		enterUserId(userId,false);
@@ -765,7 +791,7 @@ public class TrafficPO {
 		workAreaId = getWorkAreaId(workArea).toString().replace("[", "").replace("]", "");
 		try {
 			testHelper.fileWriter("******************************* " + workArea + " ****************************",
-					"C:\\DataResult\\result.txt");
+					resultsFile);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -809,11 +835,11 @@ public class TrafficPO {
 		workAreaData.remove("Please select");
 
 		try {
-			testHelper.fileWriter("Location selected: " + siteLocation, "C:\\DataResult\\result.txt");
-			testHelper.fileWriter("Work Area displayed: " + workAreaData, "C:\\DataResult\\result.txt");
+			testHelper.fileWriter("Location selected: " + siteLocation, resultsFile);
+			testHelper.fileWriter("Work Area displayed: " + workAreaData, resultsFile);
 			testHelper.fileWriter("Work Area reference: " + getValidWorkArea(siteLocationId),
-					"C:\\DataResult\\result.txt");
-			testHelper.fileWriter("Work Area selected: " + workArea, "C:\\DataResult\\result.txt");
+					resultsFile);
+			testHelper.fileWriter("Work Area selected: " + workArea, resultsFile);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -942,8 +968,8 @@ public class TrafficPO {
 		}
 
 		try {
-			testHelper.fileWriter("Mail Format(s) displayed: " + mailFormat, "C:\\DataResult\\result.txt");
-			testHelper.fileWriter("Mail Format(s) reference: " + workAreaRef, "C:\\DataResult\\result.txt");
+			testHelper.fileWriter("Mail Format(s) displayed: " + mailFormat, resultsFile);
+			testHelper.fileWriter("Mail Format(s) reference: " + workAreaRef, resultsFile);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -983,7 +1009,7 @@ public class TrafficPO {
 				.until(ExpectedConditions.visibilityOfAllElements(mailformats));
 		randomMailFormat = mailFormatList.get(index).getText();
 		try {
-			testHelper.fileWriter("Mail Format Selected: " + randomMailFormat, "C:\\DataResult\\result.txt");
+			testHelper.fileWriter("Mail Format Selected: " + randomMailFormat, resultsFile);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -1015,7 +1041,7 @@ public class TrafficPO {
 		mailClass = mailClassList.get(index).getText();
 
 		try {
-			testHelper.fileWriter("Mail Class Selected: " + mailClass, "C:\\DataResult\\result.txt");
+			testHelper.fileWriter("Mail Class Selected: " + mailClass, resultsFile);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -1102,8 +1128,8 @@ public class TrafficPO {
 		}
 
 		try {
-			testHelper.fileWriter("PaymentType displayed: " + mailClass, "C:\\DataResult\\result.txt");
-			testHelper.fileWriter("PaymentType reference: " + mailClassRef, "C:\\DataResult\\result.txt");
+			testHelper.fileWriter("PaymentType displayed: " + mailClass, resultsFile);
+			testHelper.fileWriter("PaymentType reference: " + mailClassRef, resultsFile);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -1132,7 +1158,7 @@ public class TrafficPO {
 		paymentType = paymentTypeList.get(index).getText();
 
 		try {
-			testHelper.fileWriter("Payment Type Selected: " + paymentType, "C:\\DataResult\\result.txt");
+			testHelper.fileWriter("Payment Type Selected: " + paymentType, resultsFile);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -1167,7 +1193,7 @@ public class TrafficPO {
 		subMailType = subMailTypeList.get(index).getText();
 
 		try {
-			testHelper.fileWriter("Sub Mail Type Selected: " + subMailType, "C:\\DataResult\\result.txt");
+			testHelper.fileWriter("Sub Mail Type Selected: " + subMailType, resultsFile);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -1181,7 +1207,7 @@ public class TrafficPO {
 		streamId = getStreamId(streamList.get(index).getText());
 
 		try {
-			testHelper.fileWriter("Stream Selected: " + streamList.get(index).getText(), "C:\\DataResult\\result.txt");
+			testHelper.fileWriter("Stream Selected: " + streamList.get(index).getText(), resultsFile);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -1213,8 +1239,8 @@ public class TrafficPO {
 		}
 
 		try {
-			testHelper.fileWriter("Sub Mail Type displayed: " + subMailType, "C:\\DataResult\\result.txt");
-			testHelper.fileWriter("Sub Mail Type reference: " + mailClassRef, "C:\\DataResult\\result.txt");
+			testHelper.fileWriter("Sub Mail Type displayed: " + subMailType, resultsFile);
+			testHelper.fileWriter("Sub Mail Type reference: " + mailClassRef, resultsFile);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -1281,8 +1307,8 @@ public class TrafficPO {
 		}
 
 		try {
-			testHelper.fileWriter("Stream displayed: " + streamName, "C:\\DataResult\\result.txt");
-			testHelper.fileWriter("Stream reference: " + streamIdRef, "C:\\DataResult\\result.txt");
+			testHelper.fileWriter("Stream displayed: " + streamName, resultsFile);
+			testHelper.fileWriter("Stream reference: " + streamIdRef, resultsFile);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -1417,8 +1443,8 @@ public class TrafficPO {
 		}
 
 		try {
-			testHelper.fileWriter("Mail Class displayed: " + mailClass, "C:\\DataResult\\result.txt");
-			testHelper.fileWriter("Mail Class reference: " + mailClassRef, "C:\\DataResult\\result.txt");
+			testHelper.fileWriter("Mail Class displayed: " + mailClass, resultsFile);
+			testHelper.fileWriter("Mail Class reference: " + mailClassRef, resultsFile);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -1437,8 +1463,8 @@ public class TrafficPO {
 		doOffices.remove("PLEASE SELECT");
 		
 		try {
-			testHelper.fileWriter("Delivery Office Displayed: " + doOffices, "C:\\DataResult\\result.txt");
-			testHelper.fileWriter("Delivery Office Reference: " + mailClassRef, "C:\\DataResult\\result.txt");
+			testHelper.fileWriter("Delivery Office Displayed: " + doOffices, resultsFile);
+			testHelper.fileWriter("Delivery Office Reference: " + mailClassRef, resultsFile);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -1496,7 +1522,7 @@ public class TrafficPO {
 		
 		destinationLocation = locationList.get(2).getText();
 		try {
-			testHelper.fileWriter("Delivery Office Selected: " + destinationLocation, "C:\\DataResult\\result.txt");
+			testHelper.fileWriter("Delivery Office Selected: " + destinationLocation, resultsFile);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -1667,9 +1693,9 @@ public class TrafficPO {
 					.until(ExpectedConditions.visibilityOf(mailFormatField));
 
 			try {
-				testHelper.fileWriter("Mail Format displayed: " + mailFormatF.getText(), "C:\\DataResult\\result.txt");
-				testHelper.fileWriter("Mail Format reference: " + fetchedData.toString(), "C:\\DataResult\\result.txt");
-				testHelper.fileWriter("Mail Format Selected: " + fetchedData.toString(), "C:\\DataResult\\result.txt");
+				testHelper.fileWriter("Mail Format displayed: " + mailFormatF.getText(), resultsFile);
+				testHelper.fileWriter("Mail Format reference: " + fetchedData.toString(), resultsFile);
+				testHelper.fileWriter("Mail Format Selected: " + fetchedData.toString(), resultsFile);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -1700,9 +1726,9 @@ public class TrafficPO {
 					.until(ExpectedConditions.visibilityOf(mailClassField));
 
 			try {
-				testHelper.fileWriter("Mail Class displayed: " + mailClassF.getText(), "C:\\DataResult\\result.txt");
-				testHelper.fileWriter("Mail Class reference: " + fetchedData, "C:\\DataResult\\result.txt");
-				testHelper.fileWriter("Mail Class selected: " + fetchedData, "C:\\DataResult\\result.txt");
+				testHelper.fileWriter("Mail Class displayed: " + mailClassF.getText(), resultsFile);
+				testHelper.fileWriter("Mail Class reference: " + fetchedData, resultsFile);
+				testHelper.fileWriter("Mail Class selected: " + fetchedData, resultsFile);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -1737,9 +1763,9 @@ public class TrafficPO {
 
 			try {
 				testHelper.fileWriter("Payment Type displayed: " + paymentTypeF.getText(),
-						"C:\\DataResult\\result.txt");
-				testHelper.fileWriter("Paymet Type reference: " + fetchedData.toString(), "C:\\DataResult\\result.txt");
-				testHelper.fileWriter("Paymet Type selected: " + fetchedData.toString(), "C:\\DataResult\\result.txt");
+						resultsFile);
+				testHelper.fileWriter("Paymet Type reference: " + fetchedData.toString(), resultsFile);
+				testHelper.fileWriter("Paymet Type selected: " + fetchedData.toString(), resultsFile);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -1776,11 +1802,11 @@ public class TrafficPO {
 
 			try {
 				testHelper.fileWriter("Sub Mail Typ displayed: " + subMailTypeF.getText(),
-						"C:\\DataResult\\result.txt");
+						resultsFile);
 				testHelper.fileWriter("Sub Mail Type reference: " + fetchedData.toString(),
-						"C:\\DataResult\\result.txt");
+						resultsFile);
 				testHelper.fileWriter("Sub Mail Type selected: " + fetchedData.toString(),
-						"C:\\DataResult\\result.txt");
+						resultsFile);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -1816,9 +1842,9 @@ public class TrafficPO {
 					.until(ExpectedConditions.visibilityOf(streamIdField));
 
 			try {
-				testHelper.fileWriter("Stream displayed: " + subMailTypeF.getText(), "C:\\DataResult\\result.txt");
-				testHelper.fileWriter("Stream reference: " + fetchedData.toString(), "C:\\DataResult\\result.txt");
-				testHelper.fileWriter("Stream selected: " + fetchedData.toString(), "C:\\DataResult\\result.txt");
+				testHelper.fileWriter("Stream displayed: " + subMailTypeF.getText(), resultsFile);
+				testHelper.fileWriter("Stream reference: " + fetchedData.toString(), resultsFile);
+				testHelper.fileWriter("Stream selected: " + fetchedData.toString(), resultsFile);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -1876,8 +1902,8 @@ public class TrafficPO {
 		}
 
 		try {
-			testHelper.fileWriter("Containers displayed: " + containers, "C:\\DataResult\\result.txt");
-			testHelper.fileWriter("Containers reference: " + containerRef, "C:\\DataResult\\result.txt");
+			testHelper.fileWriter("Containers displayed: " + containers, resultsFile);
+			testHelper.fileWriter("Containers reference: " + containerRef, resultsFile);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -2450,7 +2476,7 @@ public class TrafficPO {
 
 		try {
 			testHelper.fileWriter("******************************* " + siteLocation + " ****************************",
-					"C:\\DataResult\\result.txt");
+					resultsFile);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

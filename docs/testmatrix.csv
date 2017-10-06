@@ -1,0 +1,79 @@
+BDD Scenario,Jira,Feature file
+Shift Details (Work Area) full entry,PDAPTT-256,captureattributes.feature
+Shift Details (Work Area) partial entry,PDAPTT-256,captureattributes.feature
+Mail Formats should match selected work area,PDAPTT-159,captureattributes.feature
+Single Mail Formats should be auto selected,PDAPTT-159,captureattributes.feature
+Attribute Set - Mail Item Class is more than one,PDAPTT-12,captureattributes.feature
+Attribute Set - Mail Item Class is one,PDAPTT-12,captureattributes.feature
+Attribute Set - Payment type more than one,PDAPTT-13,captureattributes.feature
+View list of SubMail Types,PDAPTT-10,captureattributes.feature
+Single SubMail Types,PDAPTT-10,captureattributes.feature
+Workarea with Single SubMail Type,PDAPTT-10,captureattributes.feature
+Attribute Set - Single Stream Name,PDAPTT-168,captureattributes.feature
+Capture Destination Location (Conc Out),PDAPTT-178,captureattributes.feature
+Capture Destination Location Selection (Conc Out),PDAPTT-178,captureattributes.feature
+User selects Intercept Direct,PDAPTT-137,captureattributes.feature
+Delivery offices derived from site location,PDAPTT-137,captureattributes.feature
+Delivery office populated by selection,PDAPTT-137,captureattributes.feature
+Visibility of Scan Barcode and Abnormal Posting Button (IPS - L),PDAPTT-405,captureattributes.feature
+Visibility of Scan Barcode and Abnormal Posting Button (Intercept),PDAPTT-405,captureattributes.feature
+Visibility of Scan Barcode and Abnormal Posting Button (Conc Out),PDAPTT-405,captureattributes.feature
+Capture Attributes validate back button for "<work area>",PDAPTT-375,captureattributes.feature
+Capture Attributes validate back button for "<work area>",PDAPTT-375,captureattributes.feature
+Attribute Set- Container Type (Barcode Unavailable/Faulty),PDAPTT-17,captureattributes.feature
+User selects container type (multiple options),PDAPTT-17,captureattributes.feature
+User selects container type (one option),PDAPTT-17,captureattributes.feature
+User submits selected container,PDAPTT-17,captureattributes.feature
+Faulty Barcode entry,PDAPTT-17,captureattributes.feature
+User cancels faulty barcode entry,PDAPTT-17,captureattributes.feature
+User cancels faulty barcode entry,PDAPTT-17,captureattributes.feature
+Thirty transaction limit pop up on faulty/missing button,PDAPTT-17,captureattributes.feature
+Submit traffic capture (submit button),PDAPTT-170,captureattributes.feature
+Return to Capture Attributes Page,PDAPTT-170,captureattributes.feature
+Populate Capture Attributes Page,PDAPTT-170,captureattributes.feature
+Go back Capture Attributes Page,PDAPTT-170,captureattributes.feature
+Location work area mapping,PDAPTT-519,captureattributes.feature
+Abnormal Posting button available,PDAPTT-51,captureattributes.feature
+Abnormal Posting button selected,PDAPTT-51,captureattributes.feature
+Abnormal Posting button selected,PDAPTT-51,captureattributes.feature
+Inputs,PDAPTT-480,captureattributes.feature
+Buttons,PDAPTT-480,captureattributes.feature
+Select Record to Delete,PDAPTT-171,captureattributes.feature
+Delete Mode,PDAPTT-171,captureattributes.feature
+Delete a Record,PDAPTT-171,captureattributes.feature
+Cancel,PDAPTT-171,captureattributes.feature
+User is presented container type where barcode is unavailable or faulty,PDAPTT-485,captureattributes.feature
+User selects container type (multiple options),PDAPTT-485,captureattributes.feature
+User selects container type (one option),PDAPTT-485,captureattributes.feature
+User submits selected container,PDAPTT-485,captureattributes.feature
+Faulty/Missing entry,PDAPTT-485,captureattributes.feature
+User cancels faulty barcode entry,PDAPTT-485,captureattributes.feature
+User cancels faulty barcode entry,PDAPTT-485,captureattributes.feature
+Thirty transaction limit pop up on faulty/missing button,PDAPTT-485,captureattributes.feature
+Capturing Multiple Traffic Capture Transactions,PDAPTT-484,captureattributes.feature
+Clear field by one for "<work area>",PDAPTT-682,captureattributes.feature
+Skip default field "<work area>",PDAPTT-682,captureattributes.feature
+Back button when all fields are clear,PDAPTT-682,captureattributes.feature
+Character limit on fields,PDAPTT-691,captureattributes.feature
+User selects Delivery Out,PDAPTT-743,captureattributes.feature
+Delivery offices presented to user,PDAPTT-743,captureattributes.feature
+User selects Delivery Out,PDAPTT-743,captureattributes.feature
+Shift Details from Navigation Menu,PDAPTT-544,captureattributes.feature
+"<work area>",PDAPTT-795,captureattributes.feature
+Navigating to Shift History,PDAPTT-34,shifthistory.feature
+Viewing Shift History,PDAPTT-34,shifthistory.feature
+Shift History restriction,PDAPTT-34,shifthistory.feature
+Select Record to Delete,PDAPTT-45,shifthistory.feature
+Delete Mode,PDAPTT-45,shifthistory.feature
+Delete a record,PDAPTT-45,shifthistory.feature
+Cancel,PDAPTT-45,shifthistory.feature
+User Login invalid user id,PDAPTT-153,userauthentication.feature
+User Login invalid pin,PDAPTT-153,userauthentication.feature
+User Login successful,PDAPTT-153,userauthentication.feature
+User Logout ,PDAPTT-121,userauthentication.feature
+Pre-login negative validation ,PDAPTT-155,userauthentication.feature
+Pre-login negative validation ,PDAPTT-155,userauthentication.feature
+Pre-login positive validation ,PDAPTT-155,userauthentication.feature
+Capture User ID ,PDAPTT-55,userauthentication.feature
+Failed Login less than three attempts ,PDAPTT-120,userauthentication.feature
+Failed Login three attempts ,PDAPTT-120,userauthentication.feature
