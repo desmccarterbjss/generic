@@ -51,7 +51,7 @@ public class TrafficPO {
 	private static String dataResultFolder=
 			Property.get("royalmail.properties", "results.folder");
 	
-	private static String resultsFile=dataResultFolder+"\\results.txt";
+	private static String resultsFile=dataResultFolder+"\\all-streams-results.txt";
 	
 	private static String loggedInUser;
 	private static String destinationLocation;
